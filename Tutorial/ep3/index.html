@@ -1,0 +1,58 @@
+<html>
+<head>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title></title>
+  <body>
+    <script type="text/babel">
+      class MemoItem extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            showtime: false
+          }
+        }
+        _handleClick() {
+          this.setState ({
+            showtime: !this.state.showtime
+          })
+        }
+        render() {
+          return (
+            <div onClick={this._handleClick.bind(this)}>
+              {this.props.text} created at {this.state.showtime? this.props.time : null}
+            </div>
+          )
+        }
+      }
+      class MemoContainer extends React.Component {
+        _getMemos() {
+          return [
+            { id: 1, text: "this is the first.", time: "12:30" },
+            { id: 2, text: "this is the second.", time: "12:31" },
+            { id: 3, text: "this is the third.", time: "12:32" }
+          ]
+        }
+        render() {
+          return (
+            <div>
+              { this._getMemos().map( memo =>
+                <MemoItem
+                  key={memo.id}
+                  text={memo.text}
+                  time={memo.time} />
+              )}
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(
+        <MemoContainer />,
+        document.getElementById("app")
+      );
+    </script>
+    <div id="app"></div>
+  </body>
+</head>
+</html>

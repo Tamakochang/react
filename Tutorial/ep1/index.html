@@ -1,0 +1,24 @@
+<html>
+<head>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title></title>
+  <body>
+    <script type="text/babel">
+      class HelloReact extends React.Component {
+        render() {
+          //return(<div>Hello React</div>)
+          const list = ['a', 'b', 'c'];
+          return (<div>{list}</div>);
+        }
+      }
+      ReactDOM.render(
+        <HelloReact />,
+        document.getElementById("app")
+      );
+    </script>
+    <div id="app"></div>
+  </body>
+</head>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title></title>
+  <body>
+    <script type="text/babel">
+      class MemoItem extends React.Component {
+        render() {
+          return (
+            <div>
+              <p>{this.props.text}</p>
+            </div>
+          )
+        }
+      }
+      class MemoContainer extends React.Component {
+        _getMemos() {
+          return [
+            { id: 1, text: "this is the first." },
+            { id: 2, text: "this is the second." },
+            { id: 3, text: "this is the third." }
+          ]
+        }
+        render() {
+          return (
+            <div>
+              { this._getMemos().map( memo =>
+                <MemoItem
+                  key={memo.id}
+                  text={memo.text} />
+              )}
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(
+        <MemoContainer />,
+        document.getElementById("app")
+      );
+    </script>
+    <div id="app"></div>
+  </body>
+</head>
+</html>

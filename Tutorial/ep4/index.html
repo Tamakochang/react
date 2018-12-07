@@ -1,0 +1,96 @@
+<html>
+<head>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title></title>
+  <body>
+    <script type="text/babel">
+      class MemoItem extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            show_created_at: false
+          }
+        }
+        _handleClick() {
+          this.setState ({
+            show_created_at: !this.state.show_created_at
+          })
+        }
+        render() {
+          return (
+            <div onClick={this._handleClick.bind(this)}>
+              {this.props.text} created at {this.state.show_created_at? this.props.created_at : null}
+            </div>
+          )
+        }
+      }
+      class MemoContainer extends React.Component {
+        constructor() {
+          super()
+          this.state = {
+            memo_list: [
+              { id: 1, text: "this is the first.", created_at: new Date() },
+              { id: 2, text: "this is the second.", created_at: new Date() },
+              { id: 3, text: "this is the third.", created_at: new Date() }
+            ]
+          }
+        }
+        _getMemos() {
+          return this.state.memo_list
+        }
+        _addMemo(memo_text) {
+          const new_memo = {
+            id: Math.random.toString(36).substring(2),
+            text: memo_text,
+            created_at: new Date()
+          }
+          this.setState({
+            memo_list: this.state.memo_list.concat([new_memo])
+          })
+        }
+        render() {
+          return (
+            <div>
+              <div><MemoAddForm _addMemo = {this._addMemo.bind(this)} /></div>
+              <hr/>
+              { this._getMemos().map( memo =>
+                <MemoItem
+                  key={memo.id}
+                  text={memo.text}
+                  created_at={memo.created_at.toString()} />
+              )}
+            </div>
+          )
+        }
+      }
+      class MemoAddForm extends React.Component {
+        constructor() {
+          super()
+          this.memo = React.createRef();
+        }
+        _handleSubmit(event) {
+          event.preventDefault()
+          this.props._addMemo(this.memo.current.value)
+        }
+        render() {
+          return (
+            <div>
+              <form onSubmit={this._handleSubmit.bind(this)}>
+                <textarea ref = {this.memo}/>
+                <button>Submit</button>
+              </form>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(
+        <MemoContainer />,
+        document.getElementById("app")
+      );
+    </script>
+    <div id="app"></div>
+  </body>
+</head>
+</html>
