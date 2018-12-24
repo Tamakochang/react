@@ -86,7 +86,7 @@ class Product extends Component {
   }
   render() {
     return (
-      <div className="row" style={{paddingTop: '100px'}}>
+      <div className="row">
         <div className="col-md-8">
           <div className="border" style={{marginLeft: '5px', padding: '20px'}}>
             { menus.map( menu =>
